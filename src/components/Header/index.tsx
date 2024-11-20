@@ -100,42 +100,44 @@ export default function Header() {
 
           <LoginRegisterButton />
           <ThemeSwitch />
-          <ul className='dropdown-profile'>
-            <li className='header-nav-dashboard nav-item dropdown pe-3'>
-              <a className='nav-link nav-profile d-flex align-items-center pe-0' href='#' data-bs-toggle='dropdown'>
-                <img src={avatarPath(user?.avatar)} alt='Profile' className='rounded-circle' />
-                <span className='d-none d-md-block dropdown-toggle ps-2'>{user?.name?.firstName}</span>
-              </a>
+          {login && (
+            <ul className='dropdown-profile'>
+              <li className='header-nav-dashboard nav-item dropdown pe-3'>
+                <a className='nav-link nav-profile d-flex align-items-center pe-0' href='#' data-bs-toggle='dropdown'>
+                  <img src={avatarPath(user?.avatar)} alt='Profile' className='rounded-circle' />
+                  <span className='d-none d-md-block dropdown-toggle ps-2'>{user?.name?.firstName}</span>
+                </a>
 
-              <ul className='dropdown-menu dropdown-menu-end dropdown-menu-arrow profile'>
-                <li className='dropdown-header'>
-                  <Link to='/dashboard/profile'>
-                    <h6>{user?.fullName}</h6>
-                    <span>{user?.email}</span>
-                  </Link>
-                </li>
-                <li>
-                  <hr className='dropdown-divider' />
-                </li>
+                <ul className='dropdown-menu dropdown-menu-end dropdown-menu-arrow profile'>
+                  <li className='dropdown-header'>
+                    <Link to='/dashboard/profile'>
+                      <h6>{user?.fullName}</h6>
+                      <span>{user?.email}</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <hr className='dropdown-divider' />
+                  </li>
 
-                <li>
-                  <Link className='dropdown-item d-flex align-items-center' to='/dashboard'>
-                    <i className='bi bi-house'></i>
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li>
-                  <hr className='dropdown-divider' />
-                </li>
-                <li>
-                  <button className='dropdown-item d-flex align-items-center' onClick={() => dispatch(logOut())}>
-                    <i className='bi bi-box-arrow-right'></i>
-                    <span>Đăng xuất</span>
-                  </button>
-                </li>
-              </ul>
-            </li>
-          </ul>
+                  <li>
+                    <Link className='dropdown-item d-flex align-items-center' to='/dashboard'>
+                      <i className='bi bi-house'></i>
+                      <span>Dashboard</span>
+                    </Link>
+                  </li>
+                  <li>
+                    <hr className='dropdown-divider' />
+                  </li>
+                  <li>
+                    <button className='dropdown-item d-flex align-items-center' onClick={() => dispatch(logOut())}>
+                      <i className='bi bi-box-arrow-right'></i>
+                      <span>Đăng xuất</span>
+                    </button>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          )}
         </div>
       </header>
     </>
