@@ -1,0 +1,30 @@
+.schedule-select {
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+}
+
+.schedule-select > button {
+  width: 100px;
+  height: min-content;
+}
+
+.room-select {
+  padding: 1rem;
+  margin-top: 1rem;
+  color: var(--color-default);
+}
+
+.room-select .form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: end;
+}
+
+.room-select .form > button {
+  width: 100px;
+  height: min-content;
+}

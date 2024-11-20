@@ -1,0 +1,32 @@
+.record-detail p {
+  padding: 5px 16px 16px;
+  white-space: pre-line;
+}
+
+.record-detail .header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.record-detail .header .history {
+  cursor: pointer;
+  text-decoration: underline;
+  padding-right: 20px;
+}
+
+.record-detail .header .active {
+  color: var(--bs-primary);
+}
+
+.record-detail .header .btn {
+  height: fit-content;
+}
+
+.record-list .search-box {
+  max-width: 500px;
+  padding: 10px 10px;
+}
+
+.record-list > div {
+  background-color: white;
+}
