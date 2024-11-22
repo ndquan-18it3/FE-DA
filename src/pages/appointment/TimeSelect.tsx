@@ -43,7 +43,7 @@ export default function TimeSelect(props: Props) {
                 aria-controls={`day-${idx}`}
                 aria-selected='true'
                 onClick={() => setTab({ day, nextweek: false })}>
-                {SCHEDULE_DAY[day] + ' - ' + format(sub(toDay, { days: now.getDay() - idx }), 'dd/MM')}
+                {format(sub(toDay, { days: now.getDay() - idx }), 'dd/MM') + ' - ' + SCHEDULE_DAY[day]}
               </button>
             </li>
           )
@@ -62,7 +62,7 @@ export default function TimeSelect(props: Props) {
                 aria-controls={`day-${idx}`}
                 aria-selected='true'
                 onClick={() => setTab({ day, nextweek: true })}>
-                {SCHEDULE_DAY[day] + ' - ' + format(sub(toDay, { days: now.getDay() - idx }), 'dd/MM')}
+                {format(sub(toDay, { days: now.getDay() - idx }), 'dd/MM') + ' - ' + SCHEDULE_DAY[day]}
               </button>
             </li>
           )
@@ -109,6 +109,7 @@ export default function TimeSelect(props: Props) {
                   </>
                 )
               })}
+              {!schedule?.length && <span className='time-chip time-chip-error badge bg-danger'>Không tìm thấy</span>}
             </div>
           )
         })}
@@ -148,6 +149,7 @@ export default function TimeSelect(props: Props) {
                   </>
                 )
               })}
+              {!schedule?.length && <span className='time-chip time-chip-error badge bg-danger'>Không tìm thấy</span>}
             </div>
           )
         })}
@@ -177,14 +179,25 @@ export default function TimeSelect(props: Props) {
   }
 
   return (
-    <div className='card time-select'>
-      <div className='card-body'>
-        <ul className='nav nav-tabs d-flex justify-content-center' id='myTab' role='tablist'>
+    <div className='card time-select d-flex row'>
+      <div className='card-body col-md-6 row'>
+        <ul className='nav nav-tabs d-flex' id='myTab' role='tablist'>
           {<TabList />}
         </ul>
         <div className='tab-content pt-2' id='myTabContent'>
           {<TabContents />}
         </div>
+      </div>
+      <div className='col-md-6 p-0'>
+        <textarea
+          name='note'
+          className='note p-2'
+          rows={1}
+          placeholder='Ghi chú'
+          required
+          // value={""}
+          // onChange={(e) => setText(e.target.value)}
+        />
       </div>
     </div>
   )
