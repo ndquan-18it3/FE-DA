@@ -1,13 +1,16 @@
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import React, { useEffect } from 'react'
-import Chatbot, { createChatBotMessage as createChatBotMessageCustom } from 'react-chatbot-kit'
+import Chatbot, { createChatBotMessage, createChatBotMessage as createChatBotMessageCustom } from 'react-chatbot-kit'
 import 'react-chatbot-kit/build/main.css'
 import IConfig from 'react-chatbot-kit/build/src/interfaces/IConfig'
 import { IMessage } from 'react-chatbot-kit/build/src/interfaces/IMessages'
-import './index.css'
 import Markdown from 'react-markdown'
+import { GeneralOptions } from './components'
+import { StepOneSchedule, StepTwoSchedule } from './components/Schedule'
+import './index.css'
 
 const apiKey = import.meta.env.VITE_CHAT_BOT_API_KEY?.toString()
+
 const genAI = new GoogleGenerativeAI(apiKey)
 const generationConfig = {
   temperature: 1,
@@ -19,19 +22,57 @@ const generationConfig = {
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
 const helloMessage: IMessage = createChatBotMessageCustom(`Xin chào!`, { loading: true })
+const optionsMessage: IMessage = createChatBotMessage('Tôi có thể giúp gì cho bạn hôm nay?', {
+  delay: 200,
+  widget: 'overview'
+})
+
+const widget: any = [
+  {
+    widgetName: 'overview',
+    widgetFunc: (props: any) => <GeneralOptions {...props} />,
+    mapStateToProps: ['messages']
+  },
+  {
+    widgetName: 'schedule',
+    widgetFunc: (props: any) => <StepOneSchedule {...props} />
+  },
+  {
+    widgetName: 'schedule2',
+    widgetFunc: (props: any) => <StepTwoSchedule {...props} />
+  }
+  // {
+  //   widgetName: 'localStatistics',
+  //   widgetFunc: (props: any) => <LocalStatistics />
+  // },
+  // {
+  //   widgetName: 'emergencyContact',
+  //   widgetFunc: (props: any) => <Contact />
+  // },
+  // {
+  //   widgetName: 'medicineDelivery',
+  //   widgetFunc: (props: any) => <MedicineDelivery />
+  // }
+]
+
 const config: IConfig = {
-  initialMessages: [helloMessage],
+  initialMessages: [helloMessage, optionsMessage],
   customComponents: {
     botAvatar: () => <i className='bi bi-robot bot-avatar' />,
     botChatMessage(props) {
       const markdown = props.message
       return <Markdown className='chatbot-markdown'>{markdown}</Markdown>
     }
-  }
+  },
+  widgets: widget
 }
 
 interface IActions {
   handleReply: (message: string) => void
+  handleAppointmentScheduling: () => void
+  handleQuestAction: () => void
+  handleOtherActions: () => void
+  handleAddMessageToState: (text: string) => void
 }
 
 export const ChatBot = () => {
@@ -107,8 +148,62 @@ const ActionProvider = (props: any) => {
       }
     })
   }
+
+  const handleAppointmentScheduling = () => {
+    const message = createChatBotMessage(
+      'Thu thập các thông tin cần thiết (thu thập tự động khi người dùng đăng nhập).',
+      {
+        widget: 'schedule',
+        loading: true,
+        terminateLoading: true,
+        withAvatar: true
+      }
+    )
+
+    addMessageToState(message)
+  }
+
+  const handleQuestAction = () => {
+    const message = createChatBotMessage('Updating', {
+      // widget: 'schedule',
+      loading: true,
+      terminateLoading: true,
+      withAvatar: true
+    })
+
+    addMessageToState(message)
+  }
+
+  const handleOtherActions = () => {
+    const message = createChatBotMessage('Updating', {
+      // widget: 'schedule',
+      loading: true,
+      terminateLoading: true,
+      withAvatar: true
+    })
+
+    addMessageToState(message)
+  }
   const parse = (message: string) => {
     console.log(message)
+  }
+
+  const handleAddMessageToState = (text: string, widget?: string) => {
+    const message = createChatBotMessage(text, {
+      widget: widget,
+      loading: true,
+      terminateLoading: true,
+      withAvatar: false
+    })
+
+    addMessageToState(message)
+  }
+
+  const addMessageToState = (message: string) => {
+    setState((state: any) => ({
+      ...state,
+      messages: [...state.messages, message]
+    }))
   }
 
   const genMessage = async (prompt: string) => {
@@ -125,7 +220,13 @@ const ActionProvider = (props: any) => {
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           parse: parse,
-          actions: { handleReply }
+          actions: {
+            handleReply,
+            handleAppointmentScheduling,
+            handleQuestAction,
+            handleOtherActions,
+            handleAddMessageToState
+          }
         })
       })}
     </div>
