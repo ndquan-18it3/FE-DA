@@ -193,7 +193,7 @@ const ActionProvider = (props: any) => {
       widget: widget,
       loading: true,
       terminateLoading: true,
-      withAvatar: false
+      withAvatar: true
     })
 
     addMessageToState(message)

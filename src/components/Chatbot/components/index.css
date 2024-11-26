@@ -40,13 +40,15 @@
   border-radius: 10px;
   align-items: center;
   justify-content: center;
+  padding: 10px;
 }
 .column-left {
-  text-align: right;
+  /* text-align: right; */
 }
 .column-right {
   text-align: left;
   padding: 8px;
+  width: 400px;
 }
 
 .url-link {
@@ -125,4 +127,8 @@ select,
 option,
 textarea {
   font-size: 14px !important;
+}
+
+.appointment-scheduling .form-error-message {
+  font-size: 13px;
 }
