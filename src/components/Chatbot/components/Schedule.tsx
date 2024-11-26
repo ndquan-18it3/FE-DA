@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ClipLoader from 'react-spinners/ClipLoader'
 import * as yup from 'yup'
-import { APPOINTMENT_SCHEDULING, useApi } from '../../../api'
+import { APPOINTMENT_SCHEDULING, GET_APPOINTMENT_SCHEDULING, useApi } from '../../../api'
 import { useAppSelector } from '../../../hooks/store'
 import { dateFormat, phoneRegExp } from '../../../utils'
+import { SessionSchedule } from '../../../constants'
 
 type StepOneInputs = {
   name?: string
@@ -73,9 +74,11 @@ export const StepOneSchedule = (props: any) => {
     await useApi
       .post(APPOINTMENT_SCHEDULING, data)
       .then((res: any) => {
+        console.log('res', res)
         props.actionProvider.handleAddMessageToState(
           'Chúng tôi đang tiến hành xếp lịch cho bạn, vui lòng chờ!',
-          'schedule2'
+          'schedule2',
+          res?.data?.id
         )
       })
       .catch((error: any) => {
@@ -203,14 +206,22 @@ type ScheduleInfo = {
 export const StepTwoSchedule = (props: any) => {
   const [loading, setLoading] = useState(true)
   const [info, setInfo] = useState<ScheduleInfo>()
+  const id = props.payload
 
   useEffect(() => {
-    const getStats = async () => {
-      // const stats = await getData()
-      // const filteredFlights = flights.filter((item) => item.Status === null);
+    const fetchData = async () => {
+      const res = await useApi.get(GET_APPOINTMENT_SCHEDULING.replace(':id', id))
+      const data = res.data
+      if (data)
+        setInfo({
+          doctor: data?.doctor?.fullName,
+          day: dateFormat(data?.date, 'dd/MM/yyy'),
+          time: data?.session === SessionSchedule.MORNING ? 'Buổi sáng' : 'Buổi chiều'
+        })
+      setLoading(false)
     }
-    getStats()
-  }, [])
+    fetchData()
+  }, [id])
 
   return (
     <div className='stats'>

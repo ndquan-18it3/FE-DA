@@ -32,7 +32,7 @@
 }
 
 .stats {
-  color: white;
+  color: white !important;
   font-size: 0.9rem;
   background-color: rgba(45, 159, 253, 0.589);
   display: flex;
@@ -42,10 +42,15 @@
   justify-content: center;
   padding: 10px;
 }
+.stats p {
+  color: white !important;
+}
 .column-left {
+  color: white !important;
   /* text-align: right; */
 }
 .column-right {
+  color: white !important;
   text-align: left;
   padding: 8px;
   width: 400px;

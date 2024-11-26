@@ -72,7 +72,7 @@ interface IActions {
   handleAppointmentScheduling: () => void
   handleQuestAction: () => void
   handleOtherActions: () => void
-  handleAddMessageToState: (text: string) => void
+  handleAddMessageToState: (text: string, data?: any) => void
 }
 
 export const ChatBot = () => {
@@ -188,12 +188,13 @@ const ActionProvider = (props: any) => {
     console.log(message)
   }
 
-  const handleAddMessageToState = (text: string, widget?: string) => {
+  const handleAddMessageToState = (text: string, widget?: string, payload?: any) => {
     const message = createChatBotMessage(text, {
       widget: widget,
       loading: true,
       terminateLoading: true,
-      withAvatar: true
+      withAvatar: true,
+      payload
     })
 
     addMessageToState(message)
