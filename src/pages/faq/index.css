@@ -58,6 +58,11 @@
 .faq .faq-list a.collapsed .icon-close {
   display: none;
 }
+
+.faq .list li {
+  padding: 0;
+  /* list-style-type: circle; */
+} 
 @media (max-width: 1200px) {
   .faq .faq-list {
     padding: 0;

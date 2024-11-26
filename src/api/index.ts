@@ -46,6 +46,8 @@ export const NOT_YET_SCHEDULED = '/schedule/not-yet'
 export const SET_DOCTOR_SCHEDULE = '/schedule/set-doctor/:id'
 export const CANCEL_SCHEDULE = '/schedule/cancel/:id'
 
+export const APPOINTMENT_SCHEDULING = '/appointment-scheduling/registration'
+
 export const RECORD_LIST = '/record'
 export const RECORD_DETAIL = '/record/:id'
 export const RECORD_BY_USER = '/record/user/:id'

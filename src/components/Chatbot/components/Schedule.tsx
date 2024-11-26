@@ -1,18 +1,19 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
-import { useAppSelector } from '../../../hooks/store'
-import { phoneRegExp } from '../../../utils'
 import ClipLoader from 'react-spinners/ClipLoader'
+import * as yup from 'yup'
+import { APPOINTMENT_SCHEDULING, useApi } from '../../../api'
+import { useAppSelector } from '../../../hooks/store'
+import { dateFormat, phoneRegExp } from '../../../utils'
 
 type StepOneInputs = {
   name?: string
   phone?: string
-  service?: string
+  service?: number
   note?: string
   date?: string
-  time?: string
+  session?: number
 }
 
 export const StepOneSchedule = (props: any) => {
@@ -25,13 +26,13 @@ export const StepOneSchedule = (props: any) => {
   const schema = yup.object<StepOneInputs>({
     name: yup.string().required('Không để trống'),
     phone: yup.string().matches(phoneRegExp, 'Số điện thoại không hợp lệ').required('Không để trống'),
-    service: yup.string().required('Không để trống'),
+    service: yup.number().required('Không để trống'),
     note: yup.string().nullable(),
     date: yup.string().test('date', 'Thời gian đã qua, vui lòng chọn thòi gian sắp tới', (value) => {
       if (!value) return true
       return value >= formattedToday
     }),
-    time: yup.string().test('date', 'Thời gian đã qua, vui lòng chọn thòi gian sắp tới', (value) => {
+    session: yup.string().test('session', 'Thời gian đã qua, vui lòng chọn thòi gian sắp tới', (value) => {
       const date = getValues('date')
       if (!date) return true
       if (date > formattedToday) return true
@@ -68,10 +69,21 @@ export const StepOneSchedule = (props: any) => {
   const onSubmit = async (data: StepOneInputs) => {
     setSubmitted(true)
     props.actionProvider.handleAddMessageToState('Cảm ơn vì thông tin của bạn.')
-    props.actionProvider.handleAddMessageToState(
-      'Chúng tôi đang tiến hành xếp lịch cho bạn, vui lòng chờ!',
-      'schedule2'
-    )
+
+    await useApi
+      .post(APPOINTMENT_SCHEDULING, data)
+      .then((res: any) => {
+        props.actionProvider.handleAddMessageToState(
+          'Chúng tôi đang tiến hành xếp lịch cho bạn, vui lòng chờ!',
+          'schedule2'
+        )
+      })
+      .catch((error: any) => {
+        props.actionProvider.handleAddMessageToState(
+          'Lịch khám đã được đặt bởi bạn trước đó, vui lòng kiểm tra lại thông tin!'
+        )
+        props.actionProvider.handleAddMessageToState(`Vào lúc: ${dateFormat(error?.response?.data?.data?.createdAt)}`)
+      })
   }
 
   return (
@@ -153,13 +165,13 @@ export const StepOneSchedule = (props: any) => {
                   id='session'
                   className='form-select'
                   aria-label='Default select example'
-                  {...register('time')}
+                  {...register('session')}
                   disabled={submitted}>
                   <option value={0}></option>
                   <option value={1}>Buổi sáng</option>
                   <option value={2}>Buổi chiều</option>
                 </select>
-                {errors.time && <span className='form-error-message'>{errors.time.message}</span>}
+                {errors.session && <span className='form-error-message'>{errors.session.message}</span>}
               </div>
             </div>
             {!submitted && (

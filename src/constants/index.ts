@@ -4,11 +4,15 @@ export const LocalStorageKey = {
   REFRESH_TOKEN: 'refreshToken'
 }
 
-
 export enum BotOption {
   SCHEDULE = 1,
   QUEST = 2,
   OTHER = 3
+}
+
+export enum SessionSchedule {
+  MORNING = 1,
+  AFTERNOON = 2
 }
 
 export enum ROLE {
