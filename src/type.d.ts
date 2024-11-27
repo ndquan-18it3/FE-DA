@@ -1,5 +1,3 @@
-import { SessionSchedule } from './constants'
-
 declare type Data<T> = Pagination & {
   data: T[]
 }
@@ -63,7 +61,7 @@ declare type Schedule = {
   from: number
   to: number
   room?: string
-  session?: SessionSchedule
+  session?: number
 }
 
 declare type TimeServing = {
