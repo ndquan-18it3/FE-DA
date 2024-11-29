@@ -163,15 +163,16 @@ const ActionProvider = (props: any) => {
     addMessageToState(message)
   }
 
-  const handleQuestAction = async () => {
-    const response = await genMessage("Tôi muốn hỏi tư vấn về bệnh tai mũi họng")
-    const message = createChatBotMessage(response, {
-      loading: true,
-      terminateLoading: true,
-      withAvatar: true
-    })
+  const handleQuestAction = () => {
+    // const response = await genMessage("Tôi muốn hỏi tư vấn về bệnh tai mũi họng")
+    // const message = createChatBotMessage(response, {
+    //   loading: true,
+    //   terminateLoading: true,
+    //   withAvatar: true
+    // })
 
-    addMessageToState(message)
+    // addMessageToState(message)
+    handleReply("Tôi muốn hỏi tư vấn về bệnh tai mũi họng")
   }
 
   const parse = (message: string) => {
