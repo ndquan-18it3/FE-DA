@@ -163,9 +163,9 @@ const ActionProvider = (props: any) => {
     addMessageToState(message)
   }
 
-  const handleQuestAction = () => {
-    const message = createChatBotMessage('Updating', {
-      // widget: 'schedule',
+  const handleQuestAction = async () => {
+    const response = await genMessage("Tôi muốn hỏi tư vấn về bệnh tai mũi họng")
+    const message = createChatBotMessage(response, {
       loading: true,
       terminateLoading: true,
       withAvatar: true
@@ -174,16 +174,6 @@ const ActionProvider = (props: any) => {
     addMessageToState(message)
   }
 
-  const handleOtherActions = () => {
-    const message = createChatBotMessage('Updating', {
-      // widget: 'schedule',
-      loading: true,
-      terminateLoading: true,
-      withAvatar: true
-    })
-
-    addMessageToState(message)
-  }
   const parse = (message: string) => {
     console.log(message)
   }
@@ -225,7 +215,6 @@ const ActionProvider = (props: any) => {
             handleReply,
             handleAppointmentScheduling,
             handleQuestAction,
-            handleOtherActions,
             handleAddMessageToState
           }
         })
