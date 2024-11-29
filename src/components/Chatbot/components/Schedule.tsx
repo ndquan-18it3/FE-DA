@@ -216,8 +216,10 @@ export const StepTwoSchedule = (props: any) => {
         setInfo({
           doctor: data?.doctor?.fullName,
           day: dateFormat(data?.date, 'dd/MM/yyy'),
-          time: data?.session === SessionSchedule.MORNING ? 'Buổi sáng' : 'Buổi chiều'
+          time: data?.session === SessionSchedule.MORNING ? 'Buổi sáng' : 'Buổi chiều',
+          room: data?.room
         })
+      props.actionProvider.handleAddMessageToState('Đặt lịch khám thành công')
       setLoading(false)
     }
     fetchData()
