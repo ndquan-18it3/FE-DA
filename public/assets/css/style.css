@@ -380,7 +380,12 @@ section {
 }
 
 .section-bg {
-  background-color: #f1f7fd;
+  /* background-color: #f1f7fd; */
+  background-color: var(--color-background-2);
+}
+
+.section-bg p, .section-bg a {
+  color: #444444;
 }
 
 .section-title {
