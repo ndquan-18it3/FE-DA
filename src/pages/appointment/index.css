@@ -2,6 +2,7 @@
   background-color: transparent;
   border-color: var(--color-border-2);
   flex-direction: row;
+  border: none;
 }
 .time-select .nav-tabs .nav-link {
   color: var(--color-title);
@@ -11,7 +12,7 @@
   color: var(--color-primary);
 }
 .time-select .tab-content {
-  /* min-height: 300px; */
+  min-height: 300px;
 }
 
 .time-select .time-chip {

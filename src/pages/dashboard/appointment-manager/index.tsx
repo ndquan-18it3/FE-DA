@@ -24,7 +24,10 @@ export default function AppointmentManager({ option }: Props) {
     () => [
       {
         header: 'Thời gian',
-        accessorFn: (originalRow) => hourFormat(originalRow.from) + ' - ' + dateFormat(originalRow.to)
+        accessorFn: (originalRow) => {
+          const date = new Date(originalRow?.date || '').getTime()
+          return hourFormat(originalRow.from + date) + ' - ' + dateFormat(originalRow.to + date)
+        }
       },
       {
         id: 'room',
@@ -46,7 +49,7 @@ export default function AppointmentManager({ option }: Props) {
       {
         header: role === 'doctor' ? 'Bệnh nhân' : 'Bác sĩ',
         accessorFn: (originalRow) =>
-          role === 'doctor' ? originalRow.user?.fullName : originalRow.doctor?.fullName || '-'
+          role === 'doctor' ? originalRow.user?.fullName || originalRow?.name : originalRow.doctor?.fullName || '-'
       },
       {
         header: 'Email',
@@ -54,6 +57,7 @@ export default function AppointmentManager({ option }: Props) {
       },
       {
         header: 'Hủy',
+        accessorKey: 'cancel',
         accessorFn: (originalRow) => (originalRow?.canceledAt ? dateFormat(originalRow.canceledAt) : '')
       },
       {
@@ -196,7 +200,8 @@ export default function AppointmentManager({ option }: Props) {
             message: option === 'CANCEL',
             success: option === 'PROGRESS' && role === 'doctor',
             'room-online': option !== 'CANCEL',
-            room: option !== 'CANCEL'
+            room: option !== 'CANCEL',
+            cancel: option == 'CANCEL'
           }
         }}
       />

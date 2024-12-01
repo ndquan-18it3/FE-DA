@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import LoginCheck from '../../components/LoginCheck'
 import Steps, { StepsProps } from '../../components/Steps'
 import { dateFormat } from '../../utils'
 import DoctorSelect from './DoctorSelect'
@@ -8,13 +7,25 @@ import TimeSelect from './TimeSelect'
 import VerifyAppointment from './VerifyAppointment'
 import Waiting from './Waiting'
 
+export type AppointmentInfo = {
+  name?: string
+  phone?: string
+  service?: number
+  note?: string
+  date?: Date
+  session?: number
+  from?: Date
+  to?: Date
+  room?: string
+}
+
 export default function Appointment() {
   const [step, setStep] = useState(1)
   const [doctorSelected, setDoctorSelected] = useState<Doctor | undefined>()
-  const [timeSelected, setTimeSelected] = useState<Schedule | undefined>()
+  const [info, setInfo] = useState<AppointmentInfo | undefined>()
 
-  const handleTimeSelect = (time: Schedule) => {
-    setTimeSelected(time)
+  const handleTimeSelect = (info?: AppointmentInfo) => {
+    setInfo(info)
     setStep(3)
     toast.success('Đã hoàn thành bước 2')
   }
@@ -32,29 +43,29 @@ export default function Appointment() {
       case 3:
         {
           if (step == 4) return toast.info('Không thể quay lại từ bước này')
-          if (!timeSelected) {
+          if (!info) {
             toast.error('Vui lòng hoàn thành bước 2')
             return
           }
-          setTimeSelected(undefined)
+          setInfo(undefined)
         }
         break
       case 2:
         {
           if (step == 4) return toast.info('Không thể quay lại từ bước này')
-          setTimeSelected(undefined)
+          setInfo(undefined)
         }
         break
       case 1:
         {
           if (step == 4) return toast.info('Không thể quay lại từ bước này')
-          setTimeSelected(undefined)
+          setInfo(undefined)
         }
         break
     }
     setStep(st)
   }
-
+  console.log('info?.from', info?.from)
   const data: StepsProps = {
     title: 'Các bước đặt lịch khám',
     currentStep: 1,
@@ -64,7 +75,7 @@ export default function Appointment() {
         description: 'Chọn bác sĩ muốn đặt lịch khám'
       },
       {
-        title: `Bước 2 ${timeSelected ? ': ' + dateFormat(timeSelected?.from || '') : ''}`,
+        title: `Bước 2 ${info?.from ? ': ' + dateFormat(info?.from || '') : ''}`,
         description: 'Chọn thời gian bạn mong muốn'
       },
       {
@@ -83,22 +94,22 @@ export default function Appointment() {
       case 1:
         return <DoctorSelect onSelect={handleDoctorSelect} />
       case 2:
-        return <TimeSelect doctor={doctorSelected} onSelect={handleTimeSelect} />
+        return <TimeSelect doctor={doctorSelected} info={info} onSelect={handleTimeSelect} />
       case 3:
-        return <VerifyAppointment doctor={doctorSelected} timeSelect={timeSelected!} onSubmit={() => setStep(4)} />
+        return <VerifyAppointment doctor={doctorSelected} info={info} onSubmit={() => setStep(4)} />
       case 4:
         return <Waiting />
     }
   }
 
   return (
-    <LoginCheck>
+    <div>
       <div className='row'>
         <div className='col-md-4'>
           <Steps data={{ ...data, currentStep: step, onChange: handleStepSelect }} />
         </div>
         <div className='col-md-8'>{render()}</div>
       </div>
-    </LoginCheck>
+    </div>
   )
 }

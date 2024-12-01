@@ -68,11 +68,11 @@ const sidebarMenus: SidebarMenu[] = [
         path: '/progress',
         role: ['user', 'doctor']
       },
-      {
-        name: 'Chờ xác nhận',
-        path: '/pending',
-        role: ['user', 'doctor']
-      },
+      // {
+      //   name: 'Chờ xác nhận',
+      //   path: '/pending',
+      //   role: ['user', 'doctor']
+      // },
       {
         name: 'Đã khám',
         path: '/completed',

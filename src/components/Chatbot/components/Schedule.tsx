@@ -8,7 +8,7 @@ import { useAppSelector } from '../../../hooks/store'
 import { dateFormat, phoneRegExp } from '../../../utils'
 import { SessionSchedule } from '../../../constants'
 
-type StepOneInputs = {
+export type StepOneInputs = {
   name?: string
   phone?: string
   service?: number

@@ -2,6 +2,7 @@ import { format, formatDistance } from 'date-fns'
 import vi from 'date-fns/locale/vi'
 
 export const dateFormat = (date?: string | number | Date, _format?: string) => {
+  if (!date) return
   return format(new Date(date || ''), _format || 'HH:mm - dd/MM/yyy')
 }
 

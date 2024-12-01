@@ -130,6 +130,8 @@ declare type Appointment = TimeStamp & {
   writeRecord?: boolean
   rating?: number
   message?: string
+  name?: string
+  date?: string
 }
 
 declare type TimeStamp = {
