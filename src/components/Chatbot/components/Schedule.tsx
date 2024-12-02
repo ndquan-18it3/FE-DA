@@ -72,7 +72,7 @@ export const StepOneSchedule = (props: any) => {
     props.actionProvider.handleAddMessageToState('Cảm ơn vì thông tin của bạn.')
 
     await useApi
-      .post(APPOINTMENT_SCHEDULING, data)
+      .post(APPOINTMENT_SCHEDULING, { ...data, userId: user?._id })
       .then((res: any) => {
         console.log('res', res)
         props.actionProvider.handleAddMessageToState(

@@ -49,16 +49,20 @@ export default function AppointmentManager({ option }: Props) {
       {
         header: role === 'doctor' ? 'Bệnh nhân' : 'Bác sĩ',
         accessorFn: (originalRow) =>
-          role === 'doctor' ? originalRow.user?.fullName || originalRow?.name : originalRow.doctor?.fullName || '-'
+          (role === 'doctor' ? originalRow.user?.fullName || originalRow?.name : originalRow.doctor?.fullName) || '-'
+      },
+      {
+        header: 'Điện thoại',
+        accessorFn: (originalRow) => (role === 'doctor' ? originalRow.phone : originalRow.doctor?.phone)
       },
       {
         header: 'Email',
-        accessorFn: (originalRow) => (role === 'doctor' ? originalRow.user?.email : originalRow.doctor?.email || '-')
+        accessorFn: (originalRow) => (role === 'doctor' ? originalRow.user?.email : originalRow.doctor?.email) || '-'
       },
       {
         header: 'Hủy',
         accessorKey: 'cancel',
-        accessorFn: (originalRow) => (originalRow?.canceledAt ? dateFormat(originalRow.canceledAt) : '')
+        accessorFn: (originalRow) => (originalRow?.updatedAt ? dateFormat(originalRow.updatedAt) : '')
       },
       {
         header: 'Tạo',
@@ -75,20 +79,19 @@ export default function AppointmentManager({ option }: Props) {
         accessorFn({ _id }) {
           return (
             <div className='group-btn'>
-              {role === 'doctor' && (
-                <Modal
-                  id={_id}
-                  name='accept'
-                  onSubmit={() => handleAccept(_id)}
-                  title='Xác nhận lịch khám bệnh'
-                  description='Xác nhận lịch khám này'
-                  button={
-                    <button className='btn btn-success'>
-                      <i className='bi bi-check-circle'></i>
-                    </button>
-                  }
-                />
-              )}
+              <Modal
+                id={_id}
+                name='accept'
+                onSubmit={() => handleAccept(_id)}
+                title='Xác nhận lịch khám bệnh'
+                description='Xác nhận lịch khám này'
+                button={
+                  <button className='btn btn-success'>
+                    <i className='bi bi-check-circle'></i>
+                  </button>
+                }
+              />
+
               <Modal
                 id={_id}
                 name='deny'
@@ -124,7 +127,7 @@ export default function AppointmentManager({ option }: Props) {
                 name='accept'
                 onSubmit={() => handleSuccess(_id)}
                 title={'Xác nhận đã khám'}
-                description='Bạn sẽ được chuyển sang mục viết bệnh án cho bệnh nhân'
+                description='Đã hoàn tất khám cho bệnh nhân này'
                 button={
                   <button className='btn btn-success'>
                     <i className='bi bi-check-circle'></i>
@@ -183,8 +186,16 @@ export default function AppointmentManager({ option }: Props) {
       })
   }
 
-  const handleSuccess = (id: string) => {
-    navigate('/dashboard/medical-record/create/' + id)
+  const handleSuccess = async (id: string) => {
+    // navigate('/dashboard/medical-record/create/' + id)
+    await useApi
+      .patch(GET_SCHEDULE.replace(':id', id), {
+        status: SCHEDULE_STATUS.COMPLETED
+      })
+      .then(() => {
+        getData()
+        toast.success('Xác nhận thành công')
+      })
   }
 
   return (
@@ -196,7 +207,7 @@ export default function AppointmentManager({ option }: Props) {
         enableRowNumbers
         state={{
           columnVisibility: {
-            actions: option === 'PENDING' && (role === 'doctor' || role === 'user'),
+            actions: option === 'PENDING' && role === 'appointment staff',
             message: option === 'CANCEL',
             success: option === 'PROGRESS' && role === 'doctor',
             'room-online': option !== 'CANCEL',

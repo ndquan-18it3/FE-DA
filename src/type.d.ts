@@ -132,6 +132,8 @@ declare type Appointment = TimeStamp & {
   message?: string
   name?: string
   date?: string
+  phone?: string
+  updatedAt?: string
 }
 
 declare type TimeStamp = {

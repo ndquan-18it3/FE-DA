@@ -67,8 +67,7 @@ export default function PostList() {
                 id={'modal-' + _id}
                 tabIndex={-1}
                 aria-labelledby='modalLabel'
-                aria-hidden='true'
-              >
+                aria-hidden='true'>
                 <div className='modal-dialog'>
                   <div className='modal-content'>
                     <div className='modal-header'>
@@ -86,8 +85,7 @@ export default function PostList() {
                         type='button'
                         className='btn btn-danger'
                         data-bs-dismiss='modal'
-                        onClick={() => deletePost(_id)}
-                      >
+                        onClick={() => deletePost(_id)}>
                         Xoá bài viết
                       </button>
                     </div>
@@ -127,7 +125,18 @@ export default function PostList() {
   // if (!data) return <></>;
   return (
     <section className='section'>
-      <MaterialReactTable columns={columns} data={data} enableFilters={false} enableRowNumbers enablePinning />
+      <MaterialReactTable
+        columns={columns}
+        data={data}
+        enableFilters={false}
+        enableRowNumbers
+        enablePinning
+        // onGlobalFilterChange={(props) => console.log('props', props)}
+        // initialState={{
+        //   showGlobalFilter: true,
+        //   globalFilterFn: 'contains'
+        // }}
+      />
     </section>
   )
 }
