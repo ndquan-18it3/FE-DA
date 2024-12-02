@@ -82,7 +82,7 @@ export default function UserList() {
                     name: 'message',
                     className: 'form-control',
                     type: 'text',
-                    defaultValue: 'Người dùng vi phạm chinh sách của Mental-Health'
+                    defaultValue: 'Người dùng vi phạm chinh sách hệ thống'
                   }
                 }}
               />
