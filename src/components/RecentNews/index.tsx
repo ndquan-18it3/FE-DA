@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { POST_LIST, useApi } from '../../api'
 import { dateFormat } from '../../utils'
 import './index.css'
@@ -17,7 +18,7 @@ export default function RecentNews() {
       <h3 className='sidebar-title'>Bài viết gần đây</h3>
 
       <div className='mt-3'>
-        {newsList.map(({ _id, title, createdAt }) => (
+        {newsList.map(({ _id, title, createdAt, slug }) => (
           <div className='post-item' key={_id}>
             {/* <img
               src="assets/img/blog/blog-recent-1.jpg"
@@ -26,7 +27,7 @@ export default function RecentNews() {
             /> */}
             <div>
               <h4>
-                <a href='blog-post.html'>{title}</a>
+                <Link to={'/post/' + slug}>{title}</Link>
               </h4>
               <time dateTime='2020-01-01'>{dateFormat(createdAt)}</time>
             </div>

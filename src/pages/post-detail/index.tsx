@@ -15,7 +15,7 @@ export default function PostDetail() {
   const { user } = useAppSelector((state) => state.auth)
   useEffect(() => {
     getData(slug)
-  }, [])
+  }, [slug])
 
   const getData = async (slug: string) => {
     const data = (await useApi.get(POST_DETAIL.replace(':slug', slug))).data as Post
