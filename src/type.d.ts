@@ -20,6 +20,7 @@ declare type Post = TimeStamp & {
   createdBy: User
   content: string
   category: Category
+  liked: boolean;
 }
 
 declare type Category = TimeStamp & {

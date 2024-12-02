@@ -143,3 +143,7 @@
 .btn-comment:hover {
   background-color: var(--color-primary-hover);
 }
+
+.btn-like i {
+  color: white !important;
+}
