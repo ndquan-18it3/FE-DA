@@ -5,7 +5,7 @@ import ClipLoader from 'react-spinners/ClipLoader'
 import * as yup from 'yup'
 import { APPOINTMENT_SCHEDULING, GET_APPOINTMENT_SCHEDULING, useApi } from '../../../api'
 import { useAppSelector } from '../../../hooks/store'
-import { dateFormat, phoneRegExp } from '../../../utils'
+import { dateFormat, hourFormat, phoneRegExp } from '../../../utils'
 import { SessionSchedule } from '../../../constants'
 
 export type StepOneInputs = {
@@ -122,7 +122,7 @@ export const StepOneSchedule = (props: any) => {
                   className='form-control'
                   id='note'
                   style={{ height: 100 }}
-                  placeholder=''
+                  placeholder='Tình trạng hoặc triệu chứng...'
                   {...register('note')}
                   disabled={submitted}
                 />
@@ -216,10 +216,13 @@ export const StepTwoSchedule = (props: any) => {
         setInfo({
           doctor: data?.doctor?.fullName,
           day: dateFormat(data?.date, 'dd/MM/yyy'),
-          time: data?.session === SessionSchedule.MORNING ? 'Buổi sáng' : 'Buổi chiều',
+          time: hourFormat(data.from) + ' - ' + hourFormat(data.to),
           room: data?.room
         })
       props.actionProvider.handleAddMessageToState('Đặt lịch khám thành công')
+      props.actionProvider.handleAddMessageToState(
+        'Chúng tôi sẽ sớm liên hệ với bạn để xác nhận, vui lòng chú ý điện thoại. '
+      )
       setLoading(false)
     }
     fetchData()

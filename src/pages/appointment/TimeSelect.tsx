@@ -287,7 +287,7 @@ export const Info = ({ onSubmit }: { onSubmit: (data: AppointmentInfo) => void }
                   className='form-control'
                   id='note'
                   style={{ height: 100 }}
-                  placeholder=''
+                  placeholder='Tình trạng hoặc triệu chứng...'
                   {...register('note')}
                 />
               </div>
