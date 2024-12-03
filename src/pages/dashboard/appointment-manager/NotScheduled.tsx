@@ -53,6 +53,10 @@ export default function NotYetScheduled() {
         accessorFn: (originalRow) => originalRow?.user?.fullName || originalRow?.name
       },
       {
+        header: 'Điện thoại',
+        accessorFn: (originalRow) => originalRow?.phone || originalRow?.user?.phone
+      },
+      {
         header: 'Tài khoản',
         id: 'account',
         accessorFn: (originalRow) => (originalRow.user ? 'Người dùng' : 'Khách')
