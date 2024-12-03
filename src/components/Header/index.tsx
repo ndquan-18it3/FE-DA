@@ -6,6 +6,7 @@ import Logo from './Logo'
 import './index.css'
 import { logOut } from '../../store/authSlice'
 import { avatarPath } from '../../utils'
+import { ROLE } from '../../constants'
 
 const maps: {
   path: string
@@ -94,9 +95,11 @@ export default function Header() {
             <i id='nav-toggle' className='bi bi-list mobile-nav-toggle' onClick={handleNavbarMobileToggle}></i>
           </nav>
 
-          <Link to='/appointment' className='appointment-btn scrollto'>
-            Đặt lịch <span className='d-none d-md-inline'>khám</span>
-          </Link>
+          {(user?.role == ROLE.USER || user?.role == undefined) && (
+            <Link to='/appointment' className='appointment-btn scrollto'>
+              Đặt lịch <span className='d-none d-md-inline'>khám</span>
+            </Link>
+          )}
 
           <LoginRegisterButton />
           <ThemeSwitch />

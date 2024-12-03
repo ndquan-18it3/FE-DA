@@ -5,6 +5,8 @@ import Header from '../Header'
 import './index.css'
 import 'react-chatbot-kit/build/main.css'
 import { ChatBot } from '../Chatbot'
+import { useAppSelector } from '../../hooks/store'
+import { ROLE } from '../../constants'
 
 type Props = {
   title?: string
@@ -51,6 +53,7 @@ export default function Layout(props: Props) {
 
 const ContactIcon = () => {
   const [visible, setVisible] = useState(false)
+  const { user } = useAppSelector((state) => state.auth)
 
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop
@@ -80,7 +83,7 @@ const ContactIcon = () => {
       <div className='scroll-top' onClick={scrollToTop} style={{ display: visible ? 'inline' : 'none' }}>
         <i className='bi bi-chevron-double-up' />
       </div>
-      <ChatBot />
+      {(user?.role == ROLE.USER || user?.role == undefined) && <ChatBot />}
       <Link className='contact-icon' to='/contact'>
         <i className='bi bi-telephone' />
       </Link>

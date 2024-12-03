@@ -53,6 +53,11 @@ export default function NotYetScheduled() {
         accessorFn: (originalRow) => originalRow?.user?.fullName || originalRow?.name
       },
       {
+        header: 'Tài khoản',
+        id: 'account',
+        accessorFn: (originalRow) => (originalRow.user ? 'Người dùng' : 'Khách')
+      },
+      {
         header: 'Tạo lúc',
         accessorFn: (originalRow) => dateFormat(originalRow.createdAt)
       },

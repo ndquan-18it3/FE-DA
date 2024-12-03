@@ -41,6 +41,22 @@ export default function Profile() {
     experience: yup.string().nullable()
   })
 
+  const defaultValues: Inputs = {
+    fullName: profile?.fullName,
+    firstName: profile?.name?.firstName,
+    lastName: profile?.name?.lastName,
+    phone: profile?.phone,
+    numberId: profile?.numberId,
+    gender: profile?.gender,
+    address: profile?.address,
+    degree: profile?.description?.degree,
+    experience: profile?.description?.experience,
+    birthday: profile?.birthday,
+    fullNameRelative: profile?.fullNameRelative,
+    phoneRelative: profile?.phoneRelative,
+    addressRelative: profile?.addressRelative
+  }
+
   useEffect(() => {
     if (profile) {
       const defaultValues: Inputs = {
@@ -68,7 +84,8 @@ export default function Profile() {
     reset,
     formState: { errors }
   } = useForm<Inputs>({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    defaultValues: defaultValues
   })
 
   const onSubmit = async (data: Inputs) => {

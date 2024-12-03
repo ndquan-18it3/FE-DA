@@ -14,7 +14,8 @@ type Props = {
 }
 export default function AppointmentManager({ option }: Props) {
   const [data, setData] = useState<Appointment[]>([])
-  const role = useAppSelector((state) => state.auth.user?.role) as Role
+  const { user } = useAppSelector((state) => state.auth)
+  const role = user?.role as Role
   const navigate = useNavigate()
   useEffect(() => {
     getData()
@@ -50,6 +51,11 @@ export default function AppointmentManager({ option }: Props) {
         header: role === 'doctor' ? 'Bệnh nhân' : 'Bác sĩ',
         accessorFn: (originalRow) =>
           (role === 'doctor' ? originalRow.user?.fullName || originalRow?.name : originalRow.doctor?.fullName) || '-'
+      },
+      {
+        header: 'Tài khoản',
+        id: 'account',
+        accessorFn: (originalRow) => (originalRow.user ? 'Người dùng' : 'Khách')
       },
       {
         header: 'Điện thoại',
@@ -212,7 +218,8 @@ export default function AppointmentManager({ option }: Props) {
             success: option === 'PROGRESS' && role === 'doctor',
             'room-online': option !== 'CANCEL',
             room: option !== 'CANCEL',
-            cancel: option == 'CANCEL'
+            cancel: option == 'CANCEL',
+            account: role !== 'user'
           }
         }}
       />
