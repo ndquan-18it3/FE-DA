@@ -19,8 +19,8 @@ export default function VerifyAppointment(props: Props) {
     const data = {
       doctorId: doctor ? doctor._id : undefined,
       userId: user ? user._id : undefined,
-      ...info,
       session: 0,
+      ...info,
       service: 0,
       from: info?.from?.getTime()! - info?.date?.getTime()!,
       to: info?.to?.getTime()! - info?.date?.getTime()!

@@ -1,9 +1,10 @@
 import { MRT_ColumnDef, MaterialReactTable } from 'material-react-table'
 import { useEffect, useMemo, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { CANCEL_SCHEDULE, GET_SCHEDULE, PATIENT_REGISTRATION, useApi } from '../../../api'
 import Modal from '../../../components/Modal'
+import Popper from '../../../components/Popper'
 import { SCHEDULE_STATUS } from '../../../constants'
 import { useAppSelector } from '../../../hooks/store'
 import { dateFormat, hourFormat } from '../../../utils'
@@ -51,6 +52,17 @@ export default function AppointmentManager({ option }: Props) {
         header: role === 'doctor' ? 'Bệnh nhân' : 'Bác sĩ',
         accessorFn: (originalRow) =>
           (role === 'doctor' ? originalRow.user?.fullName || originalRow?.name : originalRow.doctor?.fullName) || '-'
+      },
+      {
+        header: 'Ghi chú',
+        id: 'note',
+        accessorFn: (originalRow) => (
+          <Popper title='Ghi chú' content={originalRow.note}>
+            <button type='button' className='btn btn-lg'>
+              <i className='bi bi-stickies-fill'></i>
+            </button>
+          </Popper>
+        )
       },
       {
         header: 'Tài khoản',
@@ -219,7 +231,8 @@ export default function AppointmentManager({ option }: Props) {
             'room-online': option !== 'CANCEL',
             room: option !== 'CANCEL',
             cancel: option == 'CANCEL',
-            account: role !== 'user'
+            account: role !== 'user',
+            note: role !== 'user'
           }
         }}
       />

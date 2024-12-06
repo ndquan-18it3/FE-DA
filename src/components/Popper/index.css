@@ -1,0 +1,26 @@
+/*--------------------------------------------------------------
+  # Popper
+  --------------------------------------------------------------*/
+.popper-container {
+  position: relative;
+}
+
+.popper {
+  position: fixed;
+  background-color: white;
+  border: 1px solid grey;
+  /* padding: 10px; */
+  border-radius: 4px;
+  z-index: 9999999999999;
+  height: fit-content;
+  min-width: 300px;
+}
+
+.popover-header {
+  color: black !important;
+}
+
+.popover-body {
+  padding: 10px;
+  font-size: 15px;
+}

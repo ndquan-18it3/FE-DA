@@ -65,7 +65,7 @@ export default function Appointment() {
     }
     setStep(st)
   }
-  console.log('info?.from', info?.from)
+  console.log('info', info)
   const data: StepsProps = {
     title: 'Các bước đặt lịch khám',
     currentStep: 1,

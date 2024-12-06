@@ -1,19 +1,12 @@
 import { MRT_ColumnDef, MaterialReactTable } from 'material-react-table'
 import { useLayoutEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import {
-  CANCEL_SCHEDULE,
-  DOCTOR_LIST,
-  GET_SCHEDULE,
-  NOT_YET_SCHEDULED,
-  SET_DOCTOR_SCHEDULE,
-  useApi
-} from '../../../api'
+import { GET_SCHEDULE, NOT_YET_SCHEDULED, useApi } from '../../../api'
 import Modal from '../../../components/Modal'
-import { dateFormat, hourFormat } from '../../../utils'
+import Popper from '../../../components/Popper'
 import { SCHEDULE_STATUS } from '../../../constants'
 import { useAppSelector } from '../../../hooks/store'
+import { dateFormat, hourFormat } from '../../../utils'
 
 export default function NotYetScheduled() {
   const [data, setData] = useState<Appointment[]>([])
@@ -61,6 +54,17 @@ export default function NotYetScheduled() {
         id: 'account',
         accessorFn: (originalRow) => (originalRow.user ? 'Người dùng' : 'Khách')
       },
+      {
+        header: 'Ghi chú',
+        accessorFn: (originalRow) => (
+          <Popper title='Ghi chú' content={originalRow.note}>
+            <button type='button' className='btn btn-lg'>
+              <i className='bi bi-stickies-fill'></i>
+            </button>
+          </Popper>
+        )
+      },
+
       {
         header: 'Tạo lúc',
         accessorFn: (originalRow) => dateFormat(originalRow.createdAt)
