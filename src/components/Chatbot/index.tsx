@@ -8,18 +8,19 @@ import Markdown from 'react-markdown'
 import { GeneralOptions } from './components'
 import { StepOneSchedule, StepTwoSchedule } from './components/Schedule'
 import './index.css'
+import { CHATBOT, GET_SCHEDULE, useApi } from '../../api'
 
-const apiKey = import.meta.env.VITE_CHAT_BOT_API_KEY?.toString()
+// const apiKey = import.meta.env.VITE_CHAT_BOT_API_KEY?.toString()
 
-const genAI = new GoogleGenerativeAI(apiKey)
-const generationConfig = {
-  temperature: 1,
-  topP: 0.95,
-  topK: 40,
-  maxOutputTokens: 8192,
-  responseMimeType: 'text/plain'
-}
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+// const genAI = new GoogleGenerativeAI(apiKey)
+// const generationConfig = {
+//   temperature: 1,
+//   topP: 0.95,
+//   topK: 40,
+//   maxOutputTokens: 8192,
+//   responseMimeType: 'text/plain'
+// }
+// const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
 
 const helloMessage: IMessage = createChatBotMessageCustom(`Xin chào!`, { loading: true })
 const optionsMessage: IMessage = createChatBotMessage('Tôi có thể giúp gì cho bạn hôm nay?', {
@@ -172,7 +173,14 @@ const ActionProvider = (props: any) => {
     // })
 
     // addMessageToState(message)
-    handleReply("Tôi muốn hỏi tư vấn về bệnh tai mũi họng")
+    // handleReply('Tôi muốn hỏi tư vấn về bệnh tai mũi họng')
+    const message = createChatBotMessage('Các triệu chứng bạn đang gặp phải là gì?', {
+      loading: true,
+      terminateLoading: true,
+      withAvatar: true
+    })
+
+    addMessageToState(message)
   }
 
   const parse = (message: string) => {
@@ -200,8 +208,9 @@ const ActionProvider = (props: any) => {
 
   const genMessage = async (prompt: string) => {
     try {
-      const result = await model.generateContent(prompt)
-      return result.response.text()
+      const res = await useApi.post(CHATBOT, { text: prompt })
+      // const result = await model.generateContent(prompt)
+      return res.data
     } catch (error) {
       return 'Có lỗi xảy ra, vui lòng thử lại sau!'
     }
