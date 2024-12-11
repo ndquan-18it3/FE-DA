@@ -136,6 +136,7 @@ declare type Appointment = TimeStamp & {
   phone?: string
   updatedAt?: string
   note?: string
+  record?: string
 }
 
 declare type TimeStamp = {
@@ -179,6 +180,7 @@ declare type MedicalRecordData = {
   userId?: string
   doctorId?: string
   scheduleId?: string
+  record?: string
 }
 
 declare type Noti = {

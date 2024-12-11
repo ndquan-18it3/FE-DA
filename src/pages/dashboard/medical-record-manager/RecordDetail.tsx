@@ -4,27 +4,27 @@ import { RECORD_DETAIL, useApi } from '../../../api'
 import { useAppSelector } from '../../../hooks/store'
 import { dateFormat } from '../../../utils'
 import './index.css'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 export default function RecordDetail() {
   const { id = '' } = useParams()
-  const [state, setState] = useState<MedicalRecordWithHistory>()
-  const [historyIndex, setHistoryIndex] = useState<number | undefined>()
+  const [data, setData] = useState<Appointment>()
   const role = useAppSelector((state) => state.auth.user?.role)
 
   useEffect(() => {
     ;(async () => {
       const data = await useApi.get(RECORD_DETAIL.replace(':id', id))
-      setState(data.data)
+      setData(data.data)
     })()
   }, [id])
 
-  if (!state) return <></>
-  const { record, histories } = state
-  const data = historyIndex === undefined ? record.data : histories[historyIndex].data
-  const { user, doctor } = data
+  if (!data) return <></>
+  const { user, doctor, record } = data
   return (
     <section className='section record-detail'>
-      <div className='p-3 header'>
+      <p dangerouslySetInnerHTML={{ __html: record! }} />
+      {/* <div className='p-3 header'>
         <div>
           <span>Lịch sử thay đổi: </span>
           <br />
@@ -63,8 +63,8 @@ export default function RecordDetail() {
             Chỉnh sửa
           </Link>
         )}
-      </div>
-      <div className='card'>
+      </div> */}
+      {/* <div className='card'>
         <div className='card-body pt-3'>
           <h4 className='text-center'>BỆNH ÁN TÂM THẦN {historyIndex != undefined && `[${historyIndex + 1}]`}</h4>
           <h5>THÔNG TIN CÁ NHÂN</h5>
@@ -99,7 +99,7 @@ export default function RecordDetail() {
           <h5>Phương pháp điều trị</h5>
           <p>{data.treatment}</p>
         </div>
-      </div>
+      </div> */}
     </section>
   )
 }

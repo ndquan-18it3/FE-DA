@@ -4,9 +4,14 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as yup from 'yup'
-import { GET_SCHEDULE, RECORD_LIST, useApi } from '../../../api'
+import { CREATE_RECORD, GET_SCHEDULE, RECORD_LIST, useApi } from '../../../api'
 import { avatarPath, dateFormat, hourFormat } from '../../../utils'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
+type MedicalRecord = {
+  record?: string
+}
 export default function RecordCreate() {
   const { id = '' } = useParams()
   const [appointment, setAppointment] = useState<Appointment>()
@@ -15,17 +20,13 @@ export default function RecordCreate() {
   useEffect(() => {
     Promise.all([useApi.get(GET_SCHEDULE.replace(':id', id))]).then(([res]) => {
       setAppointment(res.data)
-      reset(res.data)
+      reset({ ...res.data, record: getValues('record') })
     })
   }, [])
 
   const schema = yup
-    .object<MedicalRecordData>({
-      medicalHistory: yup.string().required('Không để trống'),
-      reason: yup.string().required('Không để trống'),
-      status: yup.string().required('Không để trống'),
-      diagnostic: yup.string().required('Không để trống'),
-      treatment: yup.string().required('Không để trống')
+    .object<MedicalRecord>({
+      record: yup.string().required('Không để trống')
     })
     .required()
 
@@ -33,20 +34,23 @@ export default function RecordCreate() {
     register,
     handleSubmit,
     formState: { errors },
-    reset
-  } = useForm<MedicalRecordData>({
+    reset,
+    getValues,
+    setValue
+  } = useForm<MedicalRecord>({
+    defaultValues: {
+      record:
+        '<ol><li>Hỏi bệnh<ol><li>Lý do vào viện<br>.<br>.</li><li>Bệnh sử<br>.<br>.</li><li>Tiền sử<br>.<br>.</li></ol></li><li>Khám bênh<ol><li>Khám toàn thân<br>.<br>.</li><li>Khám tai mũi họng<br>.<br>.</li><li>Khám bộ phận<br>.<br>.</li></ol></li><li>Tóm tắt bệnh án<br>.<br>.</li><li>Kết quả xét nghiệm<br>.<br>.</li><li>Chuẩn đoán xác định<br>.<br>.</li></ol>'
+    },
     resolver: yupResolver(schema)
   })
 
-  const onSubmit = async (data: MedicalRecordData) => {
-    await useApi.post(RECORD_LIST, {
-      ...data,
-      userId: appointment?.user._id,
-      scheduleId: id
+  const onSubmit = async (data: MedicalRecord) => {
+    await useApi.patch(CREATE_RECORD.replace(':id', id), {
+      record: data.record
     })
     toast.success('Hoàn tất, dữ liệu sẽ cập nhật trong chốc lát')
     navigate('/dashboard/medical-record/')
-    // TODO
   }
 
   if (!appointment) return <></>
@@ -63,8 +67,8 @@ export default function RecordCreate() {
                   </label>
                   <div className='col-md-8 col-lg-9'>
                     <img
-                      src={avatarPath(appointment?.user.avatar)}
-                      alt={appointment?.user.avatar}
+                      src={avatarPath(appointment?.user?.avatar)}
+                      alt={appointment?.user?.avatar}
                       className='avatar-img'
                     />
                   </div>
@@ -81,7 +85,13 @@ export default function RecordCreate() {
                       className='form-control'
                       placeholder='DD/MM/YYYY'
                       disabled
-                      value={hourFormat(appointment?.from) + ' - ' + dateFormat(appointment?.to)}
+                      value={
+                        hourFormat(appointment?.from) +
+                        ' - ' +
+                        hourFormat(appointment?.to) +
+                        ' - ' +
+                        dateFormat(appointment?.date, 'dd/MM/yyy')
+                      }
                     />
                   </div>
                 </div>
@@ -91,7 +101,7 @@ export default function RecordCreate() {
                     Phòng
                   </label>
                   <div className='col-md-8 col-lg-9'>
-                    <input type='text' id='dayIn' className='form-control' disabled value={appointment.room} />
+                    <input type='text' id='dayIn' className='form-control' disabled value={appointment?.room} />
                   </div>
                 </div>
 
@@ -102,7 +112,7 @@ export default function RecordCreate() {
                     Họ và tên
                   </label>
                   <div className='col-md-8 col-lg-9'>
-                    <input type='text' id='fullName' className='form-control' disabled {...register('user.fullName')} />
+                    <input type='text' id='fullName' className='form-control' disabled value={appointment?.name} />
                   </div>
                 </div>
 
@@ -111,7 +121,7 @@ export default function RecordCreate() {
                     Số điện thoại
                   </label>
                   <div className='col-md-8 col-lg-9'>
-                    <input type='tel' id='phone' className='form-control' disabled {...register('user.phone')} />
+                    <input type='tel' id='phone' className='form-control' disabled value={appointment?.phone} />
                   </div>
                 </div>
 
@@ -125,7 +135,7 @@ export default function RecordCreate() {
                       className='form-select'
                       aria-label='Default select example'
                       disabled
-                      {...register('user.gender')}>
+                      value={appointment?.user?.gender ?? '3'}>
                       <option value='1'>Nam</option>
                       <option value='2'>Nữ</option>
                       <option value='3'>Ẩn</option>
@@ -138,7 +148,13 @@ export default function RecordCreate() {
                     Mã định danh
                   </label>
                   <div className='col-md-8 col-lg-9'>
-                    <input type='tel' id='numberId' className='form-control' disabled {...register('user.numberId')} />
+                    <input
+                      type='tel'
+                      id='numberId'
+                      className='form-control'
+                      disabled
+                      value={appointment?.user?.numberId}
+                    />
                   </div>
                 </div>
 
@@ -153,7 +169,7 @@ export default function RecordCreate() {
                       className='form-control'
                       placeholder='DD/MM/YYYY'
                       disabled
-                      {...register('user.birthday')}
+                      value={appointment?.user?.birthday}
                     />
                   </div>
                 </div>
@@ -163,12 +179,31 @@ export default function RecordCreate() {
                     Địa chỉ
                   </label>
                   <div className='col-md-8 col-lg-9'>
-                    <input type='text' id='address' className='form-control' disabled {...register('user.address')} />
+                    <input
+                      type='text'
+                      id='address'
+                      className='form-control'
+                      disabled
+                      value={appointment?.user?.address}
+                    />
                   </div>
                 </div>
                 <hr />
 
-                <div className='row mb-3'>
+                <div>
+                  <label htmlFor='content' className='col-md-2 col-lg-2 col-form-label'>
+                    Thông tin
+                  </label>
+                  <CKEditor
+                    editor={ClassicEditor}
+                    data={getValues('record')}
+                    onBlur={(_, editor) => {
+                      setValue('record', editor.getData())
+                    }}
+                  />
+                  <br />
+                </div>
+                {/* <div className='row mb-3'>
                   <label htmlFor='medicalHistory' className='col-md-4 col-lg-3 col-form-label'>
                     Bệnh sử
                   </label>
@@ -218,7 +253,7 @@ export default function RecordCreate() {
                     <textarea className='form-control' id='treatment' rows={5} {...register('treatment')} />
                     {errors.treatment && <span className='form-error-message'>{errors.treatment.message}</span>}
                   </div>
-                </div>
+                </div> */}
 
                 <div className='text-center'>
                   <button type='submit' className='btn btn-primary'>

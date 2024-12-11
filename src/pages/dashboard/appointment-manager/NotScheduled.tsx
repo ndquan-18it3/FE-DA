@@ -55,6 +55,7 @@ export default function NotYetScheduled() {
         accessorFn: (originalRow) => (originalRow.user ? 'Người dùng' : 'Khách')
       },
       {
+        maxSize: 1,
         header: 'Ghi chú',
         accessorFn: (originalRow) => (
           <Popper title='Ghi chú' content={originalRow.note}>
@@ -98,8 +99,11 @@ export default function NotYetScheduled() {
       },
       {
         id: 'success',
-        header: '',
-        accessorFn({ _id }) {
+        header: 'Hành động',
+        accessorFn({ _id, date }) {
+          const now = new Date()
+          const toDate = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+          if (new Date(date!).getTime() < toDate.getTime()) return <span>Quá hạn</span>
           return (
             <div className='group-btn'>
               <Modal

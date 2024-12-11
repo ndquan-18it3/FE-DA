@@ -54,6 +54,7 @@ export default function AppointmentManager({ option }: Props) {
           (role === 'doctor' ? originalRow.user?.fullName || originalRow?.name : originalRow.doctor?.fullName) || '-'
       },
       {
+        size: 1,
         header: 'Ghi chú',
         id: 'note',
         accessorFn: (originalRow) => (
@@ -205,7 +206,6 @@ export default function AppointmentManager({ option }: Props) {
   }
 
   const handleSuccess = async (id: string) => {
-    // navigate('/dashboard/medical-record/create/' + id)
     await useApi
       .patch(GET_SCHEDULE.replace(':id', id), {
         status: SCHEDULE_STATUS.COMPLETED
@@ -214,6 +214,7 @@ export default function AppointmentManager({ option }: Props) {
         getData()
         toast.success('Xác nhận thành công')
       })
+    navigate('/dashboard/medical-record/create/' + id)
   }
 
   return (

@@ -8,24 +8,24 @@ import { dateFormat, getQuery } from '../../../utils'
 
 export default function MedicalRecords() {
   const uId = useAppSelector((state) => state.auth.user?._id)!
-  const [data, setData] = useState<MedicalRecord[]>([])
+  const [data, setData] = useState<Appointment[]>([])
   const role = useAppSelector((state) => state.auth.user?.role)
   const navigate = useNavigate()
   const numberId = getQuery('numberId')
 
-  const columns = useMemo<MRT_ColumnDef<MedicalRecord>[]>(
+  const columns = useMemo<MRT_ColumnDef<Appointment>[]>(
     () => [
       {
         header: 'Thời gian khám bệnh',
-        accessorFn: ({ data }) => dateFormat(data.dayIn)
+        accessorFn: ({ date }) => dateFormat(date, 'dd/MM/yyy')
       },
       {
         header: role === 'user' ? 'Bác sĩ' : 'Bệnh nhân',
-        accessorFn: ({ data: { user, doctor } }) => (role === 'user' ? doctor?.fullName : user?.fullName)
+        accessorFn: (data) => (role === 'user' ? data?.doctor?.fullName : data?.name)
       },
       {
-        header: 'Email',
-        accessorFn: ({ data: { user, doctor } }) => (role === 'user' ? doctor?.email : user?.email)
+        header: 'Điện thoại',
+        accessorFn: (data) => (role === 'user' ? data?.doctor?.phone : data?.phone)
       },
       {
         header: 'Tạo',
@@ -77,7 +77,7 @@ export default function MedicalRecords() {
           enableFilters={false}
           enableRowNumbers
           muiTableBodyRowProps={({ row }) => ({
-            onClick: () => navigate('/dashboard/medical-record/' + row.original.id),
+            onClick: () => navigate('/dashboard/medical-record/' + row.original?._id),
             sx: { cursor: 'pointer' }
           })}
         />
