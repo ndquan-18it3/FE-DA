@@ -59,13 +59,21 @@ export default function NotYetScheduled() {
         header: 'Ghi chú',
         accessorFn: (originalRow) => (
           <Popper title='Ghi chú' content={originalRow.note}>
-            <button type='button' className='btn btn-lg'>
-              <i className='bi bi-stickies-fill'></i>
+            <button type='button' className='btn btn-lg text-primary'>
+              <i className='bi bi-journal-plus'></i>
             </button>
           </Popper>
         )
       },
-
+      {
+        maxSize: 1,
+        header: 'Bệnh án',
+        accessorFn: (originalRow) => (
+          <button type='button' className='btn btn-lg'>
+            <i className='bi bi-file-earmark-medical'></i>
+          </button>
+        )
+      },
       {
         header: 'Tạo lúc',
         accessorFn: (originalRow) => dateFormat(originalRow.createdAt)

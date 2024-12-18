@@ -1,6 +1,6 @@
 import { MRT_ColumnDef, MaterialReactTable } from 'material-react-table'
 import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { CANCEL_SCHEDULE, GET_SCHEDULE, PATIENT_REGISTRATION, useApi } from '../../../api'
 import Modal from '../../../components/Modal'
@@ -33,6 +33,7 @@ export default function AppointmentManager({ option }: Props) {
       },
       {
         id: 'room',
+        maxSize: 1,
         header: 'Phòng khám',
         accessorFn: (originalRow) => originalRow.room || '-'
       },
@@ -59,11 +60,37 @@ export default function AppointmentManager({ option }: Props) {
         id: 'note',
         accessorFn: (originalRow) => (
           <Popper title='Ghi chú' content={originalRow.note}>
-            <button type='button' className='btn btn-lg'>
-              <i className='bi bi-stickies-fill'></i>
+            <button type='button' className='btn btn-lg text-primary'>
+              <i className='bi bi-journal-plus'></i>
             </button>
           </Popper>
         )
+      },
+      {
+        maxSize: 1,
+        id: 'record',
+        header: 'Bệnh án',
+        accessorFn: (originalRow) => {
+          if (originalRow.record)
+            return (
+              <Link
+                to={`/dashboard/medical-record/${originalRow._id}`}
+                type='button'
+                className='btn btn-lg text-success'>
+                <i className='bi bi-check'></i>
+                <i className='bi bi-file-earmark-medical'></i>
+              </Link>
+            )
+          return (
+            <Link
+              to={`/dashboard/medical-record/create/${originalRow._id}`}
+              type='button'
+              className='btn btn-lg text-danger'>
+              <i className='bi bi-x'></i>
+              <i className='bi bi-file-earmark-medical'></i>
+            </Link>
+          )
+        }
       },
       {
         header: 'Tài khoản',
@@ -233,7 +260,8 @@ export default function AppointmentManager({ option }: Props) {
             room: option !== 'CANCEL',
             cancel: option == 'CANCEL',
             account: role !== 'user',
-            note: role !== 'user'
+            note: role !== 'user',
+            record: option === 'COMPLETED'
           }
         }}
       />

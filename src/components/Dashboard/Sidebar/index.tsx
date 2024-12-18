@@ -90,12 +90,12 @@ const sidebarMenus: SidebarMenu[] = [
       }
     ]
   },
-  // {
-  //   name: 'Hồ sơ bệnh án',
-  //   path: '/dashboard/medical-record',
-  //   role: ['user', 'doctor'],
-  //   icon: <i className='bi bi-journal-medical'></i>
-  // },
+  {
+    name: 'Hồ sơ bệnh án',
+    path: '/dashboard/medical-record',
+    role: ['user', 'doctor'],
+    icon: <i className='bi bi-journal-medical'></i>
+  },
   {
     name: 'Thời gian làm việc',
     path: '/dashboard/schedule',
