@@ -174,7 +174,7 @@ const ActionProvider = (props: any) => {
 
     // addMessageToState(message)
     // handleReply('Tôi muốn hỏi tư vấn về bệnh tai mũi họng')
-    const message = createChatBotMessage('Các triệu chứng bạn đang gặp phải là gì?', {
+    const message = createChatBotMessage('Bạn cần hỗ trợ điều gì?', {
       loading: true,
       terminateLoading: true,
       withAvatar: true
