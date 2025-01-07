@@ -1,7 +1,7 @@
-#Demo
+# Demo
 Link demo: fe-etn-care.onrender.com
 
-#Installation
+# Installation
 Clone down this repository. You will need node and yarn or npm installed globally on your machine.
 
 Install
@@ -16,7 +16,7 @@ Start
   npm run dev
 To visit app: http://localhost:4000
 
-#Environment Variables#
+# Environment Variables
 To run this project, you will need to add the following environment variables to your .env file
 
 SITE_BASE_URL = http://localhost:4000
