@@ -34,13 +34,13 @@ export default function Contact() {
               <div className='email'>
                 <i className='bi bi-envelope'></i>
                 <h4>Email:</h4>
-                <p>ntnhan.18it3@vku.udn.vn</p>
+                <p>ndquan.18it3@vku.udn.vn</p>
               </div>
 
               <div className='phone'>
                 <i className='bi bi-phone'></i>
                 <h4>Điện thoại:</h4>
-                <p>0709872332</p>
+                <p>Updating</p>
               </div>
             </div>
           </div>

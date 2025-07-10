@@ -46,9 +46,9 @@ export default function Header() {
       <header id='header' className='fixed-top'>
         <div className='container d-flex align-items-center'>
           <h1 className='logo me-auto'>
-            <Logo />
+            {/* <Logo /> */}
             <a href='/' className='site'>
-              ENT Care
+              TMHcare
             </a>
           </h1>
           {/* <a href="/" className="logo me-auto">

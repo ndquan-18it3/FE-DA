@@ -24,7 +24,7 @@ export default function HeaderDashboard() {
         <i id='toggle-sidebar-btn' className='bi bi-list toggle-sidebar-btn' onClick={handleNavToggle}></i>
         <Link to='/' className='logo d-flex align-items-center'>
           {/* <img src="assets/img/logo.png" alt="" /> */}
-          <span className='d-none d-lg-block'>ENT Care</span>
+          <span className='d-none d-lg-block'>TMHcare</span>
         </Link>
       </div>
 

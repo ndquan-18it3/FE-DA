@@ -4,9 +4,9 @@
   --color-default-rgb: 26, 31, 36;
   --color-links: #0ea2bd;
   --color-links-hover: #1ec3e0;
-  --color-primary: #1977cc;
-  --color-primary-hover: #166ab5;
-  --color-primary-light: #1977cc;
+  --color-primary: #059652;
+  --color-primary-hover: #059652;
+  --color-primary-light: #059652;
   --color-primary-dark: #0189a1;
   --color-primary-rgb: 14, 162, 189;
   --color-primary-light-rgb: 30, 195, 224;
@@ -17,7 +17,7 @@
   --color-secondary-rgb: 72, 86, 100;
   --color-secondary-light-rgb: 143, 159, 174;
   --color-secondary-dark-rgb: 58, 71, 83;
-  --color-blue: #0d6efd;
+  --color-blue: #20c997;
   --color-blue-rgb: 13, 110, 253;
   --color-indigo: #6610f2;
   --color-indigo-rgb: 102, 16, 242;
@@ -55,13 +55,13 @@
   --color-text-light: #848484;
   --color-background-card: #fff;
 
-  --color-icon: #1977cc;
+  --color-icon: #059652;
   --color-icon-2: #fff;
 
   --color-border: #d4e5ff;
   --color-border-2: #d5e1ed;
 
-  --hero-background: url('/assets/img/hero-bg.webp');
+  --hero-background: url('/assets/img/bgimg.png');
 }
 
 html[data-theme='dark'] {
@@ -69,9 +69,9 @@ html[data-theme='dark'] {
   --color-default-rgb: 26, 31, 36;
   --color-links: #0ea2bd;
   --color-links-hover: #1ec3e0;
-  --color-primary: #1977cc;
+  --color-primary: #059652;
   --color-primary-hover: #166ab5;
-  --color-primary-light: #1977cc;
+  --color-primary-light: #059652;
   --color-primary-dark: #0189a1;
   --color-primary-rgb: 14, 162, 189;
   --color-primary-light-rgb: 30, 195, 224;
@@ -123,7 +123,7 @@ html[data-theme='dark'] {
   --color-border: #1e4976;
   --color-border-2: #1e4976;
 
-  --hero-background: url('/assets/img/hero-bg.webp');
+  --hero-background: url('/assets/img/bgimg.png');
 }
 
 #root {

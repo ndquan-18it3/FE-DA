@@ -61,7 +61,7 @@
 }
 #footer .footer-top .footer-links ul a:hover {
   text-decoration: none;
-  color: #1977cc;
+  color: #059652;
 }
 #footer .footer-newsletter {
   font-size: 15px;
@@ -95,7 +95,7 @@
   background: none;
   font-size: 16px;
   padding: 0 20px;
-  background: #1977cc;
+  background: #059652;
   color: #fff;
   transition: 0.3s;
   border-radius: 50px;
@@ -111,7 +111,7 @@
 #footer .social-links a {
   font-size: 18px;
   display: inline-block;
-  background: #1977cc;
+  background: #059652;
   color: #fff;
   line-height: 1;
   padding: 8px 0;

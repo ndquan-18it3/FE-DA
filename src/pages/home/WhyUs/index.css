@@ -3,7 +3,7 @@
   --------------------------------------------------------------*/
 .why-us .content {
   padding: 30px;
-  background: #1977cc;
+  background: #059652;
   border-radius: 4px;
   color: #fff;
 }
@@ -35,7 +35,7 @@
   font-size: 14px;
 }
 .why-us .content .more-btn:hover {
-  color: #1977cc;
+  color: #059652;
   background: #fff;
 }
 .why-us .icon-boxes .icon-box {

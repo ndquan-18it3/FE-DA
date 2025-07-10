@@ -15,7 +15,7 @@
   margin: 0 auto;
   width: 64px;
   height: 64px;
-  background: #1977cc;
+  background: #059652;
   border-radius: 5px;
   transition: all 0.3s ease-out 0s;
   display: flex;
@@ -54,14 +54,14 @@
   margin-bottom: 0;
 }
 .services .icon-box:hover {
-  background: #1977cc;
-  border-color: #1977cc;
+  background: #059652;
+  border-color: #059652;
 }
 .services .icon-box:hover .icon {
   background: #fff;
 }
 .services .icon-box:hover .icon i {
-  color: #1977cc;
+  color: #059652;
 }
 .services .icon-box:hover .icon::before {
   background: #3291e6;

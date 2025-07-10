@@ -1,7 +1,7 @@
 .chatbot-icon {
     z-index: 1030;
     cursor: pointer;
-    background-color: #1977cc;
+    background-color: #059652;
     color: white;
     height: 50px;
     width: 50px;
@@ -51,7 +51,7 @@
 }
 .react-chatbot-kit-chat-inner-container {
     height: fit-content;
-    border: 2px solid #1977cc;
+    border: 2px solid #059652;
     border-radius: 4px;
 }
 

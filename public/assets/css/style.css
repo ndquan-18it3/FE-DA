@@ -14,7 +14,7 @@ body {
 }
 
 a {
-  color: #1977cc;
+  color: #059652;
   text-decoration: none;
 }
 
@@ -42,7 +42,7 @@ h6 {
   right: 15px;
   bottom: 15px;
   z-index: 996;
-  background: #1977cc;
+  background: #059652;
   width: 40px;
   height: 40px;
   border-radius: 4px;
@@ -71,7 +71,7 @@ h6 {
   */
 .appointment-btn {
   margin-left: 25px;
-  background: #1977cc;
+  background: #059652;
   color: #fff;
   border-radius: 50px;
   padding: 8px 25px;
@@ -137,7 +137,7 @@ h6 {
 .navbar .active,
 .navbar .active:focus,
 .navbar li:hover > a {
-  color: #1977cc;
+  color: #059652;
   border-color: var(--color-icon);
 }
 .navbar .dropdown ul {
@@ -171,7 +171,7 @@ h6 {
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover > a {
-  color: #1977cc;
+  color: #059652;
 }
 .navbar .dropdown:hover > ul {
   opacity: 1;
@@ -266,7 +266,7 @@ h6 {
 .navbar-mobile a:hover,
 .navbar-mobile .active,
 .navbar-mobile li:hover > a {
-  color: #1977cc;
+  color: #059652;
 }
 .navbar-mobile .getstarted,
 .navbar-mobile .getstarted:focus {
@@ -295,7 +295,7 @@ h6 {
 .navbar-mobile .dropdown ul a:hover,
 .navbar-mobile .dropdown ul .active:hover,
 .navbar-mobile .dropdown ul li:hover > a {
-  color: #1977cc;
+  color: #059652;
 }
 .navbar-mobile .dropdown > .dropdown-active {
   display: block;
@@ -306,13 +306,14 @@ h6 {
   --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  height: 90vh;
+  height: 70vh;
   background: var(--hero-background) top center;
   background-size: cover;
   margin-bottom: -200px;
 }
 #hero .container {
   position: relative;
+  text-align: end;
 }
 #hero h1 {
   margin: 0;
@@ -337,10 +338,10 @@ h6 {
   border-radius: 50px;
   transition: 0.5s;
   color: #fff;
-  background: #1977cc;
+  background: #059652;
 }
 #hero .btn-get-started:hover {
-  background: #3291e6;
+  background: #059652;
 }
 @media (min-width: 1024px) {
   #hero {
@@ -415,7 +416,7 @@ section {
   display: block;
   width: 40px;
   height: 3px;
-  background: #1977cc;
+  background: #059652;
   bottom: 0;
   left: calc(50% - 20px);
 }
@@ -541,7 +542,7 @@ section {
 .appointment .php-email-form input:focus,
 .appointment .php-email-form textarea:focus,
 .appointment .php-email-form select:focus {
-  border-color: #1977cc;
+  border-color: #059652;
 }
 .appointment .php-email-form input,
 .appointment .php-email-form select {
@@ -551,7 +552,7 @@ section {
   padding: 10px 12px;
 }
 .appointment .php-email-form button[type="submit"] {
-  background: #1977cc;
+  background: #059652;
   border: 0;
   padding: 10px 35px;
   color: #fff;
@@ -582,11 +583,11 @@ section {
   font-size: 15px;
 }
 .departments .nav-link:hover {
-  color: #1977cc;
+  color: #059652;
 }
 .departments .nav-link.active {
-  color: #1977cc;
-  border-color: #1977cc;
+  color: #059652;
+  border-color: #059652;
 }
 .departments .tab-pane.active {
   -webkit-animation: fadeIn 0.5s ease-out;
@@ -611,7 +612,7 @@ section {
   }
   .departments .nav-link.active {
     color: #fff;
-    background: #1977cc;
+    background: #059652;
   }
 }
 

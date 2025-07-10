@@ -8,16 +8,16 @@ export default function Footer() {
         <div className='container'>
           <div className='row'>
             <div className='col-lg-3 col-md-6 footer-contact'>
-              <h3>ENT Care</h3>
+              <h3>TMHcare</h3>
               <p>
                 Ngu Hang Son <br />
                 Da Nang
                 <br />
                 Viet Nam <br />
                 <br />
-                <strong>Điện thoại:</strong> 0709872332
+                <strong>Điện thoại:</strong> Updating
                 <br />
-                <strong>Email:</strong> ntnhan.18it3@vku.udn.vn
+                <strong>Email:</strong> ndquan.18it3@vku.udn.vn
                 <br />
               </p>
             </div>
@@ -68,7 +68,7 @@ export default function Footer() {
 
             <div className='col-lg-4 col-md-6 footer-newsletter'>
               <h4>Tham gia bản tin của chúng tôi</h4>
-              <p>Đăng ký bản tin của ENT Care để cập nhật tin tức mới nhất.</p>
+              <p>Đăng ký bản tin của TMHcare để cập nhật tin tức mới nhất.</p>
               <form action='' method='post'>
                 <input type='email' name='email' placeholder='Email' />
                 <input type='submit' value='Đăng ký' />

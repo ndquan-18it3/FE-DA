@@ -6,7 +6,7 @@
 }
 .contact .info i {
   font-size: 20px;
-  color: #1977cc;
+  color: #059652;
   float: left;
   width: 44px;
   height: 44px;
@@ -36,7 +36,7 @@
 .contact .info .email:hover i,
 .contact .info .address:hover i,
 .contact .info .phone:hover i {
-  background: #1977cc;
+  background: #059652;
   color: #fff;
 }
 .contact .php-email-form {
@@ -95,7 +95,7 @@
   padding: 10px 12px;
 }
 .contact .php-email-form button[type='submit'] {
-  background: #1977cc;
+  background: #059652;
   border: 0;
   padding: 10px 35px;
   color: #fff;
