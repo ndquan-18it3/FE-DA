@@ -102,7 +102,7 @@ export default function Header() {
           )}
 
           <LoginRegisterButton />
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
           {login && (
             <ul className='dropdown-profile'>
               <li className='header-nav-dashboard nav-item dropdown pe-3'>

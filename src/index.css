@@ -64,7 +64,7 @@
   --hero-background: url('/assets/img/bgimg.png');
 }
 
-html[data-theme='dark'] {
+/* html[data-theme='dark'] {
   --color-default: #1a1f24;
   --color-default-rgb: 26, 31, 36;
   --color-links: #0ea2bd;
@@ -124,7 +124,7 @@ html[data-theme='dark'] {
   --color-border-2: #1e4976;
 
   --hero-background: url('/assets/img/bgimg.png');
-}
+} */
 
 #root {
   background: var(--color-background);

@@ -49,7 +49,7 @@ export default function HeaderDashboard() {
       <nav className='header-nav-dashboard ms-auto'>
         <ul className='d-flex align-items-center'>
           <Notification />
-          <ThemeSwitch />
+          {/* <ThemeSwitch /> */}
           <li className='nav-item dropdown pe-3'>
             <a className='nav-link nav-profile d-flex align-items-center pe-0' href='#' data-bs-toggle='dropdown'>
               <img src={avatarPath(user?.avatar)} alt='Profile' className='rounded-circle' />
