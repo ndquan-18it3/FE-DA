@@ -88,7 +88,7 @@ export const ChatBot = () => {
             messageParser={MessageParser}
             actionProvider={ActionProvider}
             placeholderText='Nhắn tin cần tư vấn...'
-            headerText='ENT Bot'
+            headerText='TMH Bot'
             validator={(input) => !!input}
           />
         </div>
