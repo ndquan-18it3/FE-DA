@@ -40,7 +40,7 @@ export default function Contact() {
               <div className='phone'>
                 <i className='bi bi-phone'></i>
                 <h4>Điện thoại:</h4>
-                <p>Updating</p>
+                <p>0123456789</p>
               </div>
             </div>
           </div>
