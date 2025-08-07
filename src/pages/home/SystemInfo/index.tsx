@@ -56,6 +56,19 @@ export default function SystemInfo() {
               <p>Lượt truy cập</p>
             </div>
           </div>
+
+          <div className='col-lg-3 col-md-6 mt-5 mt-lg-0'>
+            <div className='count-box'>
+              <i className='fas fa-eye'></i>
+              {counts ? (
+                <span className='purecounter'>{numberFormat(counts.visitor)}</span>
+              ) : (
+                <Skeleton variant='rounded' className='mb-2' />
+              )}
+              <p>Lượt truy cập</p>
+            </div>
+          </div>
+          
         </div>
       </div>
     </section>
